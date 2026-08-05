@@ -1,0 +1,64 @@
+{
+  "faqs": [
+    {
+      "question": "What is Python?",
+      "answer": "Python is a popular programming language used for web development, AI, data science and automation."
+    },
+    {
+      "question": "What is AI?",
+      "answer": "Artificial Intelligence is the simulation of human intelligence in machines."
+    },
+    {
+      "question": "What is Machine Learning?",
+      "answer": "Machine Learning is a branch of AI that enables computers to learn from data."
+    },
+    {
+      "question": "What is ChatGPT?",
+      "answer": "ChatGPT is an AI chatbot developed by OpenAI."
+    },
+    {
+      "question": "Who developed Python?",
+      "answer": "Python was created by Guido van Rossum."
+    },
+    {
+      "question": "What is CodeAlpha?",
+      "answer": "CodeAlpha provides internship opportunities and practical software development projects."
+    },
+    {
+      "question": "What is Tkinter?",
+      "answer": "Tkinter is Python's standard GUI library."
+    },
+    {
+      "question": "What is GitHub?",
+      "answer": "GitHub is a platform used to host and manage source code repositories."
+    },
+    {
+      "question": "What is NLP?",
+      "answer": "Natural Language Processing helps computers understand and process human language."
+    },
+    {
+      "question": "What is Deep Learning?",
+      "answer": "Deep Learning is a subset of Machine Learning based on neural networks."
+    },
+    {
+      "question": "What is IIT full form?",
+      "answer": "IIT stands for Indian Institute of Technology."
+    },
+    {
+      "question": "What is Java?",
+       "answer": "Java is a high-level, object-oriented programming language."
+    },
+    {
+        "question": "What is HTML?",
+        "answer": "HTML stands for HyperText Markup Language."
+    },
+    {
+        "question": "What is CSS?",
+        "answer": "CSS stands for Cascading Style Sheets."
+    },
+    {
+        "question": "What is DBMS?",
+        "answer": "DBMS stands for Database Management System."
+    }
+  ]
+}
