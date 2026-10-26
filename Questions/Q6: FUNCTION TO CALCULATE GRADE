@@ -55,6 +55,12 @@ SELECT GET_GRADE(30) AS GRADE FROM DUAL;
 SELECT GET_GRADE(105) AS GRADE FROM DUAL;
 -- Expected Output: Invalid Percentage
 
+
+-- Direct Command input and get ouput
+
+SELECT GET_GRADE(&PERCENTAGE) AS GRADE
+FROM DUAL;
+
 -- STEP 4: RESULT
 -- The function successfully returns the grade
 -- corresponding to the given percentage.
