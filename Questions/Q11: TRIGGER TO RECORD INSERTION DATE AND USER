@@ -1,0 +1,123 @@
+/*
+Q11: TRIGGER TO RECORD INSERTION DATE AND USER
+
+Aim:
+To create a trigger that automatically records the
+insertion date and database username whenever a new
+employee record is inserted.
+*/
+
+-- STEP 1: CREATE AUDIT TABLE
+-- Run only if EMP_INSERT_AUDIT does not already exist.
+
+CREATE TABLE EMP_INSERT_AUDIT (
+    EID NUMBER(5),
+    ENAME VARCHAR2(30),
+    INSERT_DATE DATE,
+    INSERT_USER VARCHAR2(128)
+);
+
+-- STEP 2: CREATE TRIGGER
+
+CREATE OR REPLACE TRIGGER TRG_INSERT_INFO
+AFTER INSERT ON EMP
+FOR EACH ROW
+BEGIN
+    INSERT INTO EMP_INSERT_AUDIT (
+        EID,
+        ENAME,
+        INSERT_DATE,
+        INSERT_USER
+    )
+    VALUES (
+        :NEW.EID,
+        :NEW.ENAME,
+        SYSDATE,
+        USER
+    );
+END;
+/
+
+-- STEP 3: CHECK TRIGGER ERRORS
+
+SHOW ERRORS;
+
+-- STEP 4: INSERT A TEST EMPLOYEE
+-- Use an EID that does not already exist in EMP.
+
+INSERT INTO EMP
+    (EID, ENAME, DEPTNO, DEPTNAME, GENDER, AGE, BASICSAL)
+VALUES
+    (105, 'Karan', 50, 'IT', 'Male', 26, 27000);
+
+COMMIT;
+
+-- STEP 5: DISPLAY AUDIT RECORD
+
+SELECT * FROM EMP_INSERT_AUDIT;
+
+-- Expected:
+-- EID = 105
+-- ENAME = Karan
+-- INSERT_DATE = Current database date and time
+-- INSERT_USER = Current Oracle username
+
+-- STEP 6: RESULT
+-- The trigger automatically records the employee ID,
+-- employee name, insertion date and database username.
+
+-- =========================================
+-- VIVA QUESTIONS AND ANSWERS (HINGLISH)
+-- =========================================
+
+-- Q1. What is a trigger in PL/SQL?
+-- Ans: Trigger ek stored PL/SQL block hai jo
+-- specified database event par automatically execute hota hai.
+
+-- Q2. What is the purpose of EMP_INSERT_AUDIT?
+-- Ans: Is table mein employee ki insertion date aur
+-- database username ke saath details store hoti hain.
+
+-- Q3. What does AFTER INSERT mean?
+-- Ans: Naya employee insert hone ke baad trigger execute hota hai.
+
+-- Q4. What is :NEW?
+-- Ans: :NEW insert ya update hone wali row ki new values
+-- access karne ke liye use hota hai.
+
+-- Q5. What is SYSDATE?
+-- Ans: SYSDATE database server ki current date aur time return karta hai.
+
+-- Q6. What does USER return?
+-- Ans: USER current Oracle database session ka username return karta hai.
+
+-- Q7. Why is FOR EACH ROW used?
+-- Ans: Isse trigger har inserted employee row ke liye execute hota hai.
+
+-- Q8. Does a trigger need to be called manually?
+-- Ans: Nahi, INSERT statement execute hone par trigger automatically fire hota hai.
+
+-- Q9. What is an audit table?
+-- Ans: Audit table database activities ka record maintain karti hai.
+
+-- Q10. What is the purpose of COMMIT?
+-- Ans: COMMIT transaction ke changes permanently save karta hai.
+
+-- Q11. What happens if the INSERT statement fails?
+-- Ans: Agar employee insert nahi hota, to us row ke liye
+-- trigger ka audit insert bhi successfully nahi hota.
+
+-- Q12. What is the difference between SYSDATE and USER?
+-- Ans: SYSDATE date aur time deta hai, jabki USER
+-- current Oracle database username deta hai.
+
+-- Q13. What is the purpose of SHOW ERRORS?
+-- Ans: Isse trigger compile karte waqt aayi errors check kar sakte hain.
+
+-- Q14. Can one trigger store data in another table?
+-- Ans: Haan, trigger ke andar INSERT statement use karke
+-- doosri table mein audit data store kar sakte hain.
+
+-- Q15. What is the difference between BEFORE and AFTER triggers?
+-- Ans: BEFORE trigger operation se pehle aur AFTER trigger
+-- operation ke baad execute hota hai.
