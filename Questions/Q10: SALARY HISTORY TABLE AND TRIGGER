@@ -1,0 +1,123 @@
+/*
+Q10: SALARY HISTORY TABLE AND TRIGGER
+
+Aim:
+To create a SALARY_HISTORY table and a trigger
+to store employee ID, old salary, new salary,
+and change date whenever salary is updated.
+*/
+
+-- STEP 1: CREATE SALARY_HISTORY TABLE
+-- Run only if SALARY_HISTORY does not already exist.
+
+CREATE TABLE SALARY_HISTORY (
+    EMP_ID NUMBER(5),
+    OLD_SAL NUMBER(10,2),
+    NEW_SAL NUMBER(10,2),
+    CHANGE_DATE DATE
+);
+
+-- STEP 2: CREATE TRIGGER
+
+CREATE OR REPLACE TRIGGER TRG_SALARY_HISTORY
+AFTER UPDATE OF BASICSAL ON EMP
+FOR EACH ROW
+BEGIN
+    INSERT INTO SALARY_HISTORY (
+        EMP_ID,
+        OLD_SAL,
+        NEW_SAL,
+        CHANGE_DATE
+    )
+    VALUES (
+        :OLD.EID,
+        :OLD.BASICSAL,
+        :NEW.BASICSAL,
+        SYSDATE
+    );
+END;
+/
+
+-- STEP 3: CHECK TRIGGER ERRORS
+
+SHOW ERRORS;
+
+-- STEP 4: CHECK CURRENT EMPLOYEE SALARY
+
+SELECT EID, ENAME, BASICSAL
+FROM EMP
+WHERE EID = 101;
+
+-- STEP 5: UPDATE SALARY
+
+UPDATE EMP
+SET BASICSAL = 36000
+WHERE EID = 101;
+
+COMMIT;
+
+-- STEP 6: DISPLAY SALARY HISTORY
+
+SELECT * FROM SALARY_HISTORY;
+
+-- Expected:
+-- EMP_ID: 101
+-- OLD_SAL: Previous salary of employee 101
+-- NEW_SAL: 36000
+-- CHANGE_DATE: Current database date and time
+
+-- STEP 7: RESULT
+-- The trigger successfully records salary changes
+-- in the SALARY_HISTORY table.
+
+-- =========================================
+-- VIVA QUESTIONS AND ANSWERS (HINGLISH)
+-- =========================================
+
+-- Q1. What is a trigger in PL/SQL?
+-- Ans: Trigger ek stored PL/SQL block hai jo
+-- specified database event par automatically execute hota hai.
+
+-- Q2. What is the purpose of SALARY_HISTORY?
+-- Ans: Is table mein employees ki salary changes
+-- ka history record store hota hai.
+
+-- Q3. What does AFTER UPDATE OF BASICSAL mean?
+-- Ans: BASICSAL column ko update karne ke baad
+-- trigger execute hota hai.
+
+-- Q4. What is :OLD.BASICSAL?
+-- Ans: Ye employee ki update se pehle wali salary batata hai.
+
+-- Q5. What is :NEW.BASICSAL?
+-- Ans: Ye employee ki update ke baad wali salary batata hai.
+
+-- Q6. Why is FOR EACH ROW used?
+-- Ans: Isse trigger har affected employee row ke liye execute hota hai.
+
+-- Q7. What is SYSDATE?
+-- Ans: SYSDATE database server ki current date aur time return karta hai.
+
+-- Q8. Does a trigger need to be called manually?
+-- Ans: Nahi, salary update hone par trigger automatically execute hota hai.
+
+-- Q9. What is an audit or history table?
+-- Ans: Ye table database changes ka record future reference ke liye store karti hai.
+
+-- Q10. What is the purpose of COMMIT?
+-- Ans: COMMIT transaction ke changes permanently save karta hai.
+
+-- Q11. What happens if UPDATE affects no rows?
+-- Ans: Koi employee update nahi hota, isliye row-level trigger execute nahi hota.
+
+-- Q12. What does :OLD.EID represent?
+-- Ans: Ye employee ki existing row ka ID represent karta hai.
+
+-- Q13. Can a trigger store data in another table?
+-- Ans: Haan, trigger ke andar INSERT statement use karke doosri table mein data store kar sakte hain.
+
+-- Q14. What is the purpose of SHOW ERRORS?
+-- Ans: Isse trigger compile karte waqt aayi errors check kar sakte hain.
+
+-- Q15. What is the difference between Q8 and Q10?
+-- Ans: Dono salary update record karte hain. Q8 mein SALARY_AUDIT table use hoti hai, jabki Q10 mein SALARY_HISTORY table use hoti hai.
