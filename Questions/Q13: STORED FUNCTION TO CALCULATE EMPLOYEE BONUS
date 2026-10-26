@@ -43,7 +43,12 @@ FROM DUAL;
 -- STEP 5: RESULT
 -- The function successfully calculates and returns
 -- 10% of the given salary as bonus.
+-- Ab SQL*Plus mein poora function create karo. Phir ye query run karo:
+-- SELECT CALC_BONUS(&SALARY) AS BONUS
+-- FROM DUAL;
 
+
+Prompt aane par 25000 enter karna. Expected output 2500 hoga.
 -- =========================================
 -- VIVA QUESTIONS AND ANSWERS (HINGLISH)
 -- =========================================
