@@ -1,0 +1,114 @@
+/*
+Q5: FUNCTION TO FIND THE GREATER NUMBER
+
+Aim:
+To create a function that accepts two numbers
+and returns the greater number.
+*/
+
+-- STEP 1: CREATE FUNCTION
+
+CREATE OR REPLACE FUNCTION GREATER_NUM(
+    P_NUM1 NUMBER,
+    P_NUM2 NUMBER
+)
+RETURN NUMBER
+IS
+BEGIN
+    IF P_NUM1 > P_NUM2 THEN
+        RETURN P_NUM1;
+    ELSE
+        RETURN P_NUM2;
+    END IF;
+END;
+/
+
+-- STEP 2: CHECK COMPILATION
+
+SHOW ERRORS;
+
+-- STEP 3: TEST CASE 1
+
+SELECT GREATER_NUM(25, 40) AS GREATER_NUMBER
+FROM DUAL;
+
+-- Expected Output: 40
+
+-- STEP 4: TEST CASE 2
+
+SELECT GREATER_NUM(80, 30) AS GREATER_NUMBER
+FROM DUAL;
+
+-- Expected Output: 80
+
+-- STEP 5: TEST CASE 3
+
+SELECT GREATER_NUM(15, 15) AS GREATER_NUMBER
+FROM DUAL;
+
+-- Expected Output: 15
+
+-- STEP 6: RESULT
+-- The function successfully returns the greater
+-- of two given numbers.
+
+-- =========================================
+-- VIVA QUESTIONS AND ANSWERS (HINGLISH)
+-- =========================================
+
+-- Q1. What is a function in PL/SQL?
+-- Ans: Function ek named PL/SQL block hai jo
+-- ek value calculate karke return karta hai.
+
+-- Q2. What is the name of this function?
+-- Ans: Is function ka naam GREATER_NUM hai.
+
+-- Q3. How many parameters does this function accept?
+-- Ans: Ye function do parameters accept karta hai.
+
+-- Q4. What is the purpose of RETURN NUMBER?
+-- Ans: Ye batata hai ki function NUMBER datatype
+-- ki value return karega.
+
+-- Q5. What is the use of IF-ELSE?
+-- Ans: IF-ELSE condition check karta hai aur
+-- uske according statements execute karta hai.
+
+-- Q6. What is the purpose of RETURN?
+-- Ans: RETURN calculated value ko caller ke paas
+-- wapas bhejta hai.
+
+-- Q7. What happens if the first number is greater?
+-- Ans: Function pehla number return karta hai.
+
+-- Q8. What happens if the second number is greater?
+-- Ans: Function doosra number return karta hai.
+
+-- Q9. What happens if both numbers are equal?
+-- Ans: Function dono mein se same value return karta hai.
+
+-- Q10. Can a function be called in a SELECT statement?
+-- Ans: Haan, is function ko SELECT statement mein
+-- call kar sakte hain.
+
+-- Q11. What is DUAL?
+-- Ans: DUAL Oracle ki special table hai jise
+-- function results aur expressions check karne ke
+-- liye use karte hain.
+
+-- Q12. What is CREATE OR REPLACE used for?
+-- Ans: Iska use function create karne ya existing
+-- function ko replace karne ke liye hota hai.
+
+-- Q13. What is the purpose of SHOW ERRORS?
+-- Ans: Isse function compile karte waqt aayi errors
+-- check kar sakte hain.
+
+-- Q14. Is a separate table required for this program?
+-- Ans: Nahi, kyunki function directly do input numbers
+-- par calculation karta hai.
+
+-- Q15. What is the difference between a function and a procedure?
+-- Ans: Function value return karta hai. Procedure
+-- OUT parameter se value de sakta hai, lekin value
+-- return karna uske liye mandatory nahi hai.
