@@ -1,0 +1,125 @@
+/*
+Q3: USER-DEFINED EXCEPTION INVALID_AGE
+
+Aim:
+To raise a user-defined exception when an employee's
+age is outside the permitted range of 18 to 60 years.
+
+Table: EMP
+Age Column: AGE
+Permitted Age Range: 18 to 60
+*/
+
+-- STEP 1: CHECK EMP TABLE
+
+DESC EMP;
+
+-- STEP 2: DISPLAY EMPLOYEE DATA
+
+SELECT EID, ENAME, AGE
+FROM EMP;
+
+-- STEP 3: PL/SQL PROGRAM
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    V_AGE EMP.AGE%TYPE;
+    INVALID_AGE EXCEPTION;
+
+BEGIN
+    V_AGE := &AGE;
+
+    IF V_AGE < 18 OR V_AGE > 60 THEN
+        RAISE INVALID_AGE;
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Age is valid.');
+    END IF;
+
+EXCEPTION
+    WHEN INVALID_AGE THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Invalid age. Age must be between 18 and 60.'
+        );
+END;
+/
+
+-- STEP 4: TEST CASES
+--
+-- Test Case 1:
+-- Input: 25
+-- Output: Age is valid.
+--
+-- Test Case 2:
+-- Input: 15
+-- Output: Invalid age. Age must be between 18 and 60.
+--
+-- Test Case 3:
+-- Input: 65
+-- Output: Invalid age. Age must be between 18 and 60.
+
+-- STEP 5: RESULT
+--
+-- The INVALID_AGE user-defined exception was
+-- successfully raised and handled when the entered
+-- age was outside the permitted range.
+
+-- =========================================
+-- VIVA QUESTIONS AND ANSWERS (HINGLISH)
+-- =========================================
+
+-- Q1. What is a user-defined exception?
+-- Ans: Ye ek exception hai jise programmer khud
+-- kisi specific condition ko handle karne ke liye declare karta hai.
+
+-- Q2. What is INVALID_AGE?
+-- Ans: INVALID_AGE ek user-defined exception hai
+-- jo invalid age hone par raise hota hai.
+
+-- Q3. How do you declare a user-defined exception?
+-- Ans: INVALID_AGE EXCEPTION; likhkar.
+
+-- Q4. What is the permitted age range in this program?
+-- Ans: Is program mein permitted age range 18 se 60 years hai.
+
+-- Q5. What is the purpose of RAISE?
+-- Ans: RAISE ka use exception ko manually trigger karne
+-- ke liye hota hai.
+
+-- Q6. What is the use of %TYPE?
+-- Ans: %TYPE variable ka datatype table ke column
+-- ke datatype ke according set karta hai.
+
+-- Q7. What happens if the age is 25?
+-- Ans: Age valid hone par "Age is valid." message display hota hai.
+
+-- Q8. What happens if the age is 15?
+-- Ans: INVALID_AGE exception raise hota hai aur
+-- invalid age ka message display hota hai.
+
+-- Q9. What happens if the age is 65?
+-- Ans: Age permitted range se bahar hai, isliye
+-- INVALID_AGE exception raise hota hai.
+
+-- Q10. What is the purpose of the EXCEPTION block?
+-- Ans: Iska use raised exception ko handle karne ke liye hota hai.
+
+-- Q11. What is DBMS_OUTPUT.PUT_LINE?
+-- Ans: Iska use output screen par display karne ke liye hota hai.
+
+-- Q12. What does SET SERVEROUTPUT ON do?
+-- Ans: Isse SQL*Plus mein DBMS_OUTPUT ka output dikhai deta hai.
+
+-- Q13. Is INVALID_AGE a predefined exception?
+-- Ans: Nahi, ye programmer dwara declare ki gayi
+-- user-defined exception hai.
+
+-- Q14. Can the permitted age range be changed?
+-- Ans: Haan, IF condition mein 18 aur 60 ko
+-- required age limits se replace kar sakte hain.
+
+-- Q15. What is the difference between RAISE and
+-- RAISE_APPLICATION_ERROR?
+-- Ans: RAISE declared exception ko trigger karta hai.
+-- RAISE_APPLICATION_ERROR custom Oracle error number
+-- aur message return karta hai.
