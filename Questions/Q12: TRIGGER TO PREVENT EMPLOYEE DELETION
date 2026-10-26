@@ -1,0 +1,111 @@
+/*
+Q12: TRIGGER TO PREVENT EMPLOYEE DELETION
+
+Aim:
+To create a trigger that prevents deletion of employees
+belonging to a particular department.
+
+Condition:
+Employees belonging to Department 10 cannot be deleted.
+*/
+
+-- STEP 1: CREATE TRIGGER
+
+CREATE OR REPLACE TRIGGER TRG_PREVENT_DELETE
+BEFORE DELETE ON EMP
+FOR EACH ROW
+BEGIN
+    IF :OLD.DEPTNO = 10 THEN
+        RAISE_APPLICATION_ERROR(
+            -20001,
+            'Deletion not allowed for Department 10.'
+        );
+    END IF;
+END;
+/
+
+-- STEP 2: CHECK TRIGGER ERRORS
+
+SHOW ERRORS;
+
+-- STEP 3: CHECK EMPLOYEE RECORDS
+
+SELECT EID, ENAME, DEPTNO
+FROM EMP;
+
+-- STEP 4: TEST CASE 1
+-- Try deleting an employee from Department 10.
+-- Use an EID that actually belongs to Department 10.
+
+DELETE FROM EMP
+WHERE EID = 101;
+
+-- Expected:
+-- ORA-20001: Deletion not allowed for Department 10.
+-- The employee record will not be deleted.
+
+-- STEP 5: TEST CASE 2
+-- To test an allowed deletion, use a disposable test
+-- employee whose DEPTNO is not 10.
+-- Example, if EID 105 belongs to Department 50:
+--
+-- DELETE FROM EMP WHERE EID = 105;
+--
+-- This deletion is allowed by the trigger.
+-- Do not run this test if you want to keep that employee.
+
+-- STEP 6: RESULT
+-- The trigger prevents deletion of employees
+-- belonging to Department 10.
+
+-- =========================================
+-- VIVA QUESTIONS AND ANSWERS (HINGLISH)
+-- =========================================
+
+-- Q1. What is a trigger in PL/SQL?
+-- Ans: Trigger ek stored PL/SQL block hai jo
+-- specified database event par automatically execute hota hai.
+
+-- Q2. What is the purpose of this trigger?
+-- Ans: Ye Department 10 ke employees ko delete hone se rokta hai.
+
+-- Q3. What does BEFORE DELETE mean?
+-- Ans: Employee delete hone se pehle trigger execute hota hai.
+
+-- Q4. What is :OLD.DEPTNO?
+-- Ans: Ye delete hone wale employee ka existing department number batata hai.
+
+-- Q5. What is RAISE_APPLICATION_ERROR?
+-- Ans: Iska use custom Oracle error number aur message
+-- generate karne ke liye hota hai.
+
+-- Q6. Why is -20001 used?
+-- Ans: Ye Oracle ke user-defined application error
+-- range -20000 se -20999 ke andar aata hai.
+
+-- Q7. What happens when we delete an employee from Department 10?
+-- Ans: Trigger error raise karta hai aur employee delete nahi hota.
+
+-- Q8. Can employees from other departments be deleted?
+-- Ans: Haan, ye trigger sirf Department 10 ki deletion rokta hai.
+
+-- Q9. What is :OLD?
+-- Ans: :OLD DELETE ya UPDATE se pehle ki row values access karne deta hai.
+
+-- Q10. What is FOR EACH ROW?
+-- Ans: Isse trigger har affected employee row ke liye execute hota hai.
+
+-- Q11. Does a trigger need to be called manually?
+-- Ans: Nahi, DELETE statement par trigger automatically fire hota hai.
+
+-- Q12. What is the purpose of SHOW ERRORS?
+-- Ans: Isse trigger compile karte waqt aayi errors check kar sakte hain.
+
+-- Q13. What is the difference between BEFORE and AFTER triggers?
+-- Ans: BEFORE trigger operation se pehle aur AFTER trigger operation ke baad execute hota hai.
+
+-- Q14. Can the protected department be changed?
+-- Ans: Haan, condition mein 10 ki jagah required department number likh sakte hain.
+
+-- Q15. What happens if the DELETE statement affects no rows?
+-- Ans: Koi row delete nahi hoti, isliye row-level trigger execute nahi hota.
